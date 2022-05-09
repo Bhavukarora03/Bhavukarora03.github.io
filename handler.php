@@ -20,14 +20,14 @@ try {
 
 	// Server settings
 	$mail->isSMTP(); // Send using SMTP
-	$mail->Host = 'smtp.***.com'; // Set the SMTP server to send through
+	$mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
 	$mail->SMTPAuth = true; // Enable SMTP authentication
-	$mail->Username = '***'; // SMTP username
-	$mail->Password = '***'; // SMTP password
-	$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-	$mail->Port = 465; // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+	$mail->Username = 'Bhavuk.arora03@gmail.com'; // SMTP username
+	$mail->Password = 'vrfgwqmzmehxaztr'; // SMTP password
+	$mail->SMTPSecure = SSL; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+	$mail->Port = 587; // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
-	$mail->setFrom($mail_to_email, $mail_to_name); // Your email
+	$mail->setFrom('Bhavuk.arora03@gmail.com', 'Bhavuk'); // Your email
 	$mail->addAddress($mail_from_email, $mail_from_name); // Add a recipient
 
 	// for($ct=0; $ct<count($_FILES['file_attach']['tmp_name']); $ct++) {
