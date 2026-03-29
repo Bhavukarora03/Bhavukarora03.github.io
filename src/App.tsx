@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
-  Send, Plus, User, Sparkles, 
+  Send, User, Sparkles, 
   Github, Linkedin, Instagram, 
   ExternalLink, Code2, Briefcase, 
-  Mail, Smartphone, Rocket, 
-  FileDown, X, Menu
+  Mail, Rocket
 } from 'lucide-react';
 import { portfolioData } from './data/portfolio';
 import { clsx, type ClassValue } from 'clsx';
@@ -27,7 +26,6 @@ const App: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -46,7 +44,6 @@ const App: React.FC = () => {
     if (!text.trim()) return;
     addMessage(text, 'user');
     setInputValue('');
-    if (window.innerWidth < 768) setIsSidebarOpen(false);
     
     setIsTyping(true);
     await new Promise(r => setTimeout(r, 800));
