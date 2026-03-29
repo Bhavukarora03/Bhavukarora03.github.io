@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-emerald-500: #10b981;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Inter', -apple-system, sans-serif;
+  margin: 0;
+}
+
+/* Very minimal, lowkey glow */
+.lowkey-glow {
+  position: fixed;
+  bottom: -10%;
+  right: -10%;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.04) 0%, transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.custom-scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.glass-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.message-fade {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
