@@ -1,47 +1,121 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #000000;
+  --color-background: #030303;
   --color-foreground: #ffffff;
-  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border: rgba(255, 255, 255, 0.08);
   --color-emerald-500: #10b981;
+  --color-emerald-400: #34d399;
+}
+
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
 body {
-  background-color: #000;
+  background-color: #030303;
   color: #fff;
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: var(--font-sans);
   margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Very minimal, lowkey glow */
-.lowkey-glow {
+/* Sophisticated Background Glows */
+.bg-glow-container {
   position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.glow-1 {
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.07) 0%, transparent 70%);
+  filter: blur(80px);
+  animation: float 20s infinite alternate ease-in-out;
+}
+
+.glow-2 {
+  position: absolute;
   bottom: -10%;
-  right: -10%;
+  left: -5%;
   width: 40vw;
   height: 40vw;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.04) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.05) 0%, transparent 70%);
   filter: blur(100px);
-  pointer-events: none;
-  z-index: 0;
+  animation: float 25s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(5%, 5%) scale(1.1); }
 }
 
 .custom-scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 
-.glass-box {
+.glass-card {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(16, 185, 129, 0.2);
 }
 
 .message-fade {
-  animation: fadeIn 0.3s ease-out forwards;
+  animation: messageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes messageEnter {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.scanline {
+  width: 100%;
+  height: 100px;
+  z-index: 50;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 0.1;
+  position: fixed;
+  bottom: 100%;
+  pointer-events: none;
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes scanline {
+  0% { bottom: 100%; }
+  100% { bottom: -100px; }
+}
+
+.text-mono {
+  font-family: var(--font-mono);
+}
+
+.typing-cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: #10b981;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
 }
