@@ -22,7 +22,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Sophisticated Background Glows */
+/* Refined Background Glows */
 .bg-glow-container {
   position: fixed;
   inset: 0;
@@ -37,9 +37,8 @@ body {
   right: -5%;
   width: 50vw;
   height: 50vw;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.07) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%);
   filter: blur(80px);
-  animation: float 20s infinite alternate ease-in-out;
 }
 
 .glow-2 {
@@ -48,14 +47,8 @@ body {
   left: -5%;
   width: 40vw;
   height: 40vw;
-  background: radial-gradient(circle, rgba(52, 211, 153, 0.05) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.03) 0%, transparent 70%);
   filter: blur(100px);
-  animation: float 25s infinite alternate-reverse ease-in-out;
-}
-
-@keyframes float {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(5%, 5%) scale(1.1); }
 }
 
 .custom-scrollbar-hide::-webkit-scrollbar {
@@ -63,46 +56,24 @@ body {
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(16, 185, 129, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(16, 185, 129, 0.15);
 }
 
 .message-fade {
-  animation: messageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: messageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes messageEnter {
-  from { opacity: 0; transform: translateY(10px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.scanline {
-  width: 100%;
-  height: 100px;
-  z-index: 50;
-  background: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(255, 255, 255, 0.02) 50%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  opacity: 0.1;
-  position: fixed;
-  bottom: 100%;
-  pointer-events: none;
-  animation: scanline 8s linear infinite;
-}
-
-@keyframes scanline {
-  0% { bottom: 100%; }
-  100% { bottom: -100px; }
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .text-mono {
@@ -119,3 +90,9 @@ body {
   from, to { opacity: 1; }
   50% { opacity: 0; }
 }
+
+/* Chip Styles */
+.action-chip {
+  @apply px-4 py-2 rounded-full border border-white/5 bg-white/5 text-[11px] font-medium text-white/50 hover:bg-white/10 hover:text-white hover:border-white/10 transition-all whitespace-nowrap;
+}
+
