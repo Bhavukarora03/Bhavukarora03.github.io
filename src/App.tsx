@@ -208,14 +208,11 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen bg-[#030303] text-white antialiased overflow-hidden font-sans">
+    <div className="flex h-[100dvh] w-screen bg-[#030303] text-white antialiased overflow-hidden font-sans">
       {/* Visual Enhancements */}
-      <div className="bg-glow-container">
-        <div className="glow-1" />
-        <div className="glow-2" />
-      </div>
+      <div className="bg-glow-container" />
 
-      {/* Sidebar */}
+      {/* Sidebar - Desktop Only */}
       <aside className="hidden md:flex w-72 border-r border-white/5 flex-col p-8 bg-black/20 backdrop-blur-3xl z-20">
         <div className="flex items-center gap-3 mb-12">
           <div className="relative group">
@@ -229,12 +226,7 @@ const App: React.FC = () => {
         </div>
         
         <nav className="flex-1 space-y-1">
-          {[
-            { label: "Projects", q: "Show Projects", icon: Layout },
-            { label: "Experience", q: "Experience", icon: Briefcase },
-            { label: "Skills", q: "Skills", icon: Code2 },
-            { label: "Contact", q: "Contact", icon: Mail },
-          ].map(item => (
+          {QUICK_ACTIONS.map(item => (
             <button 
               key={item.label} 
               onClick={() => handleSend(item.q)} 
@@ -260,14 +252,14 @@ const App: React.FC = () => {
         </div>
       </aside>
 
-      <main className="flex-1 flex flex-col relative z-10">
+      <main className="flex-1 flex flex-col relative z-10 h-full overflow-hidden">
         {/* Mobile Header */}
-        <header className="md:hidden h-16 border-b border-white/5 flex items-center px-6 justify-between bg-black/40 backdrop-blur-2xl">
+        <header className="md:hidden h-14 border-b border-white/5 flex items-center px-6 justify-between bg-black/40 backdrop-blur-2xl shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center font-bold text-sm text-emerald-500">B</div>
-            <span className="text-[11px] font-bold tracking-wider text-white/80">BHAVUK ARORA</span>
+            <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center font-bold text-xs text-emerald-500">B</div>
+            <span className="text-[10px] font-bold tracking-wider text-white/80 uppercase">Bhavuk Arora</span>
           </div>
-          <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center">
+          <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center">
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
           </div>
         </header>
@@ -280,29 +272,42 @@ const App: React.FC = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.98 }}
-                  className="flex-1 flex flex-col items-center justify-center py-20 text-center space-y-10"
+                  className="flex-1 flex flex-col items-center justify-center py-10 text-center space-y-10"
                 >
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-emerald-500/10 blur-3xl rounded-full" />
+                  {/* Tilted Image Overlap */}
+                  <div className="relative h-32 w-32 mx-auto">
                     <motion.div 
-                       initial={{ scale: 0.9 }}
-                       animate={{ scale: 1 }}
-                       className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center relative z-10 shadow-2xl backdrop-blur-xl"
+                      initial={{ rotate: -12, x: -8 }}
+                      animate={{ rotate: -15, x: -10 }}
+                      className="absolute top-0 left-0 w-24 h-24 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl backdrop-blur-xl z-0"
                     >
-                      <Sparkles className="text-emerald-500" size={32} />
+                      <Sparkles className="text-emerald-500/30" size={32} />
+                    </motion.div>
+                    <motion.div 
+                      initial={{ rotate: 8, x: 8 }}
+                      animate={{ rotate: 5, x: 10 }}
+                      className="absolute top-4 left-4 w-24 h-24 rounded-3xl overflow-hidden border-2 border-emerald-500/20 shadow-2xl z-10"
+                    >
+                      <img src={profilePic} className="w-full h-full object-cover" alt="Bhavuk" />
                     </motion.div>
                   </div>
                   
-                  <div className="space-y-4 relative z-10">
-                    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white leading-none">
-                      How can I <span className="text-emerald-500">help you?</span>
-                    </h1>
-                    <p className="text-white/40 text-sm max-w-sm mx-auto font-medium">
-                      Product Engineer specialized in building high-performance web applications.
+                  <div className="space-y-6 relative z-10 px-4">
+                    <div className="flex flex-col gap-2 items-center">
+                       <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 font-bold text-[10px] tracking-widest uppercase border border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                         Uplink Established
+                       </span>
+                       <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white leading-none">
+                        Hi <span className="text-emerald-500">Recruiter.</span>
+                      </h1>
+                    </div>
+                    <p className="text-white/40 text-sm max-w-xs mx-auto font-medium leading-relaxed">
+                      I'm a Product Engineer specialized in building high-performance web applications. How can I help you?
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-xl relative z-10">
+                  {/* Show tiles only on desktop */}
+                  <div className="hidden sm:grid grid-cols-2 gap-3 w-full max-w-xl relative z-10">
                     {QUICK_ACTIONS.map(item => (
                       <button 
                         key={item.label} 
@@ -321,44 +326,44 @@ const App: React.FC = () => {
                   </div>
                 </motion.div>
               ) : (
-                <div className="py-12 space-y-12">
+                <div className="py-8 sm:py-12 space-y-10">
                   {messages.map(msg => (
-                    <div key={msg.id} className="flex gap-5 sm:gap-8 message-fade items-start">
+                    <div key={msg.id} className="flex gap-4 sm:gap-8 message-fade items-start">
                       <div className={cn(
-                        "w-9 h-9 rounded-xl shrink-0 flex items-center justify-center shadow-2xl relative", 
+                        "w-8 h-8 sm:w-9 sm:h-9 rounded-xl shrink-0 flex items-center justify-center shadow-2xl relative", 
                         msg.sender === 'bot' 
-                          ? "bg-emerald-600/10 border border-emerald-500/20 text-emerald-500 shadow-emerald-500/5" 
-                          : "bg-white/5 border border-white/10 text-white/60 shadow-black/20"
+                          ? "bg-emerald-600/10 border border-emerald-500/20 text-emerald-500" 
+                          : "bg-white/5 border border-white/10 text-white/60"
                       )}>
-                        {msg.sender === 'bot' ? <Sparkles size={18} /> : <User size={18} />}
+                        {msg.sender === 'bot' ? <Sparkles size={16} /> : <User size={16} />}
                         {msg.sender === 'bot' && <div className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full" />}
                       </div>
-                      <div className="flex-1 pt-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <span className={cn("text-[10px] font-bold uppercase tracking-widest", msg.sender === 'bot' ? "text-emerald-500" : "text-white/30")}>
+                      <div className="flex-1 pt-0.5">
+                        <div className="flex items-center gap-3 mb-1.5">
+                          <span className={cn("text-[9px] sm:text-[10px] font-bold uppercase tracking-widest", msg.sender === 'bot' ? "text-emerald-500" : "text-white/30")}>
                             {msg.sender === 'bot' ? "Assistant" : "You"}
                           </span>
-                          <span className="text-[9px] text-white/10 uppercase font-medium">{msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                          <span className="text-[8px] sm:text-[9px] text-white/10 uppercase font-medium">{msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                         </div>
-                        <div className="text-sm sm:text-[15px] leading-[1.7] text-white/90 font-medium">
+                        <div className="text-[14px] sm:text-[15px] leading-[1.6] text-white/90 font-medium">
                           {msg.text}
                         </div>
                       </div>
                     </div>
                   ))}
                   {isTyping && (
-                    <div className="flex gap-8 items-start py-2 opacity-40">
-                      <div className="w-9 h-9 rounded-xl bg-emerald-600/5 border border-emerald-500/10 flex items-center justify-center shrink-0">
-                        <Sparkles size={18} className="text-emerald-500 animate-pulse" />
+                    <div className="flex gap-4 sm:gap-8 items-start py-2 opacity-40">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-600/5 border border-emerald-500/10 flex items-center justify-center shrink-0">
+                        <Sparkles size={16} className="text-emerald-500 animate-pulse" />
                       </div>
-                      <div className="flex gap-1.5 mt-4">
+                      <div className="flex gap-1.5 mt-3 sm:mt-4">
                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-bounce" />
                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-bounce [animation-delay:0.2s]" />
                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-bounce [animation-delay:0.4s]" />
                       </div>
                     </div>
                   )}
-                  <div ref={chatEndRef} className="h-40" />
+                  <div ref={chatEndRef} className="h-20 sm:h-40" />
                 </div>
               )}
             </AnimatePresence>
@@ -366,7 +371,7 @@ const App: React.FC = () => {
         </div>
 
         {/* Input Area */}
-        <div className="p-6 sm:p-12 bg-gradient-to-t from-[#030303] via-[#030303] to-transparent">
+        <div className="px-4 pb-6 pt-2 sm:px-12 sm:pb-12 bg-gradient-to-t from-[#030303] via-[#030303] to-transparent shrink-0">
           <div className="max-w-3xl mx-auto">
             {/* Quick Action Chips */}
             <div className="flex gap-2 overflow-x-auto pb-4 mb-2 custom-scrollbar-hide -mx-1 px-1">
@@ -386,7 +391,7 @@ const App: React.FC = () => {
               <div className="absolute -inset-1 bg-emerald-500/5 blur-xl group-focus-within:bg-emerald-500/10 transition-all duration-500 opacity-0 group-focus-within:opacity-100 rounded-3xl" />
               <div className="relative flex items-center bg-white/[0.03] border border-white/5 rounded-2xl overflow-hidden focus-within:border-emerald-500/20 transition-all backdrop-blur-3xl">
                 <input
-                  className="w-full bg-transparent border-none text-white px-6 py-5 focus:ring-0 text-[15px] placeholder-white/10 font-medium"
+                  className="w-full bg-transparent border-none text-white px-5 py-4 sm:px-6 sm:py-5 focus:ring-0 text-[14px] sm:text-[15px] placeholder-white/10 font-medium"
                   placeholder="Ask me anything..."
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
@@ -395,7 +400,7 @@ const App: React.FC = () => {
                 <button 
                   onClick={() => handleSend(inputValue)} 
                   className={cn(
-                    "p-3 mr-3 rounded-xl transition-all duration-300", 
+                    "p-2.5 sm:p-3 mr-2 sm:mr-3 rounded-xl transition-all duration-300", 
                     inputValue.trim() 
                       ? "bg-emerald-500/10 text-emerald-500" 
                       : "text-white/5"
