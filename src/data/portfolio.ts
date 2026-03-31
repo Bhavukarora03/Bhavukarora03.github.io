@@ -41,29 +41,66 @@ export const portfolioData = {
       title: "Reve",
       description: "Event network app with 20,000+ downloads. Built from concept to launch across iOS and Android.",
       tech: "Flutter",
-      color: "#10b981"
+      category: "Mobile"
+    },
+    {
+      title: "Soulune",
+      description: "Comprehensive Astrology platform featuring Kundli matchmaking, Numerology, and Palmistry integration.",
+      tech: "Flutter / Node.js",
+      category: "Mobile"
+    },
+    {
+      title: "Pakt",
+      description: "Biking community platform for riders to discover, plan, and sync up for group rides in real-time.",
+      tech: "Flutter / Firebase",
+      category: "Mobile"
+    },
+    {
+      title: "overlay_keep",
+      description: "High-performance Flutter plugin using native methods to maintain UI layers above the system keyboard.",
+      tech: "Dart / Swift / Kotlin",
+      category: "Plugin"
+    },
+    {
+      title: "Monik",
+      description: "Display control utility for Windows. A 'BetterDisplay' alternative for managing monitor inputs and DDC/CI.",
+      tech: "C++ / Win32",
+      category: "Desktop"
+    },
+    {
+      title: "Unscroll",
+      description: "Anti-doomscrolling social layer that enforces a 30-minute daily limit to promote digital wellbeing.",
+      tech: "React Native",
+      category: "Mobile"
+    },
+    {
+      title: "Two Third Dimensions",
+      description: "Trap-filled dungeon crawler. Reached Top 5 Popularity in BYOG 2021 Game Jam out of 155 entries.",
+      tech: "Unity / C#",
+      category: "Game"
+    },
+    {
+      title: "Panzer",
+      description: "Outer-space tank survival game. Ranked 452 in Graphics out of 1800 entries in Brackeys Jam.",
+      tech: "Unity / C#",
+      category: "Game",
+      link: "http://gg.gg/panzergame"
     },
     {
       title: "Restoe",
       description: "Scalable backend system using Spring Boot, PostgreSQL, Redis, and Kafka.",
       tech: "Java",
-      color: "#b07219"
+      category: "Backend"
     },
     {
       title: "VRPlaced",
-      description: "Next.js platform for 1-on-1 interviews with OpenAI-driven resume customization.",
-      tech: "JavaScript",
-      color: "#f1e05a"
-    },
-    {
-      title: "Srujan",
-      description: "AI-powered text editing platform leveraging NLP for high-accuracy proofreading and editing.",
-      tech: "Python",
-      color: "#3572A5"
+      description: "AI platform for interview prep with OpenAI-driven resume customization.",
+      tech: "Next.js",
+      category: "Web"
     }
   ],
   skills: {
-    languages: ["Dart", "Java", "TypeScript", "Swift", "Python", "C#"],
+    languages: ["Dart", "Java", "TypeScript", "Swift", "Python", "C#", "C++"],
     frameworks: ["Flutter", "Spring Boot", "Next.js", "Node.js", "Unity", "FastAPI"],
     infrastructure: ["Postgres", "Firestore", "MongoDB", "Redis", "Docker", "GCP", "Kafka"],
     design: ["Figma", "Design Systems", "Product Strategy", "UX Research", "Motion Design"]
