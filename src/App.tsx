@@ -18,6 +18,131 @@ function cn(...inputs: ClassValue[]) {
 
 const profilePic = "/profile.jpeg";
 
+const ProjectCard: React.FC<{ project: any; index: number }> = ({ project, index }) => {
+  const cardRef = useRef<HTMLAnchorElement>(null);
+  
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!cardRef.current) return;
+    const { left, top } = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+    cardRef.current.style.setProperty("--mouse-x", `${x}px`);
+    cardRef.current.style.setProperty("--mouse-y", `${y}px`);
+  };
+
+  const Icon = project.category === 'CLI' ? Code2 : 
+               project.category === 'Mobile' ? Smartphone : 
+               project.category === 'Game' ? Gamepad2 : 
+               project.category === 'Web' ? Globe : 
+               project.category === 'Backend' ? Database : Layers;
+
+  return (
+    <motion.a
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      href={project.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.05, duration: 0.5, ease: "easeOut" }}
+      whileHover={{ y: -4 }}
+      className={cn(
+        "group relative p-6 rounded-3xl glass-card spotlight-card overflow-hidden",
+        project.featured && "sm:col-span-2 bg-gradient-to-br from-emerald-500/5 to-transparent border-emerald-500/10"
+      )}
+    >
+      <div className="relative z-10">
+        <div className="flex justify-between items-start mb-6">
+          <div className={cn(
+            "p-3 rounded-2xl transition-all duration-500",
+            project.featured ? "bg-emerald-500 text-black shadow-[0_0_20px_rgba(16,185,129,0.3)]" : "bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-black"
+          )}>
+            <Icon size={20} />
+          </div>
+          {project.link && (
+            <div className="p-2 rounded-full bg-white/5 text-white/20 group-hover:text-emerald-500 transition-colors">
+              <ExternalLink size={14} />
+            </div>
+          )}
+        </div>
+
+        <div className="space-y-2 mb-6">
+          <span className="text-[10px] font-bold text-emerald-500/60 uppercase tracking-[0.2em]">
+            {project.category}
+          </span>
+          <h4 className={cn(
+            "font-bold text-white transition-colors group-hover:text-emerald-400",
+            project.featured ? "text-xl sm:text-2xl" : "text-lg"
+          )}>
+            {project.title}
+          </h4>
+          <p className={cn(
+            "text-white/40 leading-relaxed group-hover:text-white/70 transition-colors",
+            project.featured ? "text-sm sm:text-base max-w-lg" : "text-xs"
+          )}>
+            {project.description}
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          {project.tech.split(' / ').map((t: string) => (
+            <span key={t} className="text-[10px] font-bold px-3 py-1 rounded-full bg-white/5 border border-white/5 text-white/50 group-hover:border-emerald-500/20 group-hover:text-emerald-500 transition-all uppercase tracking-tighter">
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Background Polish */}
+      <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-colors" />
+    </motion.a>
+  );
+};
+
+const ProjectSection: React.FC = () => {
+  const [filter, setFilter] = useState('All');
+  const categories = ['All', ...Array.from(new Set(portfolioData.projects.map(p => p.category)))];
+  
+  const filteredProjects = filter === 'All' 
+    ? portfolioData.projects 
+    : portfolioData.projects.filter(p => p.category === filter);
+
+  return (
+    <div className="space-y-8 w-full">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div className="flex items-center gap-3">
+          <div className="w-1.5 h-6 bg-emerald-500 rounded-full" />
+          <span className="text-xs font-black text-white uppercase tracking-[0.3em]">Project Repository</span>
+        </div>
+        
+        <div className="flex gap-2 overflow-x-auto pb-2 sm:pb-0 custom-scrollbar-hide">
+          {categories.map(c => (
+            <button
+              key={c}
+              onClick={() => setFilter(c)}
+              className={cn(
+                "px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all whitespace-nowrap border",
+                filter === c 
+                  ? "bg-emerald-500 border-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.2)]" 
+                  : "bg-white/5 border-white/5 text-white/40 hover:text-white hover:border-white/10"
+              )}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+        {filteredProjects.map((p, idx) => (
+          <ProjectCard key={p.title} project={p} index={idx} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 interface Message {
   id: string;
   text: string | React.ReactNode;
@@ -66,64 +191,7 @@ const App: React.FC = () => {
     
     if (input.includes('project')) {
       addMessage(
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 mb-2">
-            <Layout size={14} className="text-emerald-500" />
-            <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Featured Projects</span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {portfolioData.projects.map((p, idx) => {
-              const Icon = p.category === 'CLI' ? Code2 : 
-                           p.category === 'Mobile' ? Smartphone : 
-                           p.category === 'Game' ? Gamepad2 : 
-                           p.category === 'Web' ? Globe : 
-                           p.category === 'Backend' ? Database : Layers;
-              
-              return (
-                <motion.a
-                  href={p.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.05 }}
-                  whileHover={{ y: -4, scale: 1.01 }}
-                  key={p.title} 
-                  className="p-5 rounded-2xl glass-card group cursor-pointer block relative overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="w-12 h-12 bg-emerald-500/5 rounded-full blur-xl" />
-                  </div>
-
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="flex flex-col gap-3">
-                      <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-500 w-fit group-hover:bg-emerald-500 group-hover:text-black transition-all duration-300">
-                        <Icon size={18} />
-                      </div>
-                      <div>
-                        <span className="text-[9px] font-bold text-emerald-500/50 uppercase tracking-widest mb-1 block">{p.category}</span>
-                        <h4 className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">{p.title}</h4>
-                      </div>
-                    </div>
-                    {p.link && <ExternalLink size={14} className="text-white/20 group-hover:text-emerald-500 transition-colors mt-1" />}
-                  </div>
-                  
-                  <p className="text-[12px] text-white/40 leading-relaxed mb-4 group-hover:text-white/60 transition-colors line-clamp-2">
-                    {p.description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {p.tech.split(' / ').map(t => (
-                      <span key={t} className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-white/5 border border-white/5 text-white/40 group-hover:border-emerald-500/20 group-hover:text-emerald-500/70 transition-all">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </motion.a>
-              );
-            })}
-          </div>
-        </div>,
+        <ProjectSection />,
         'bot'
       );
     } else if (input.includes('experience') || input.includes('journey')) {

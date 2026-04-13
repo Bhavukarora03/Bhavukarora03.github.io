@@ -42,21 +42,24 @@ export const portfolioData = {
       description: "Real-world network throttler for Rust CLI. Simulates Edge, 3G, and flaky connections by injecting latency and packet loss at the system level.",
       tech: "Rust",
       category: "CLI",
-      link: "https://github.com/bhavukar/subway-sim.git"
+      link: "https://github.com/bhavukar/subway-sim.git",
+      featured: true
     },
     {
       title: "asset-vibe",
       description: "Automated mobile asset pipeline. Watch folders to instantly generate 1x, 2x, 3x iOS and Android drawable resolutions with strongly-typed references.",
       tech: "Rust",
       category: "CLI",
-      link: "https://github.com/bhavukar/asset-vibe.git"
+      link: "https://github.com/bhavukar/asset-vibe.git",
+      featured: true
     },
     {
       title: "Reve",
       description: "Event network app with 20,000+ downloads. Built from concept to launch across iOS and Android.",
       tech: "Flutter",
       category: "Mobile",
-      link: "https://reve.rsvp/"
+      link: "https://reve.rsvp/",
+      featured: true
     },
     {
       title: "Soulune",
