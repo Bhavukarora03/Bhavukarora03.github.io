@@ -38,10 +38,25 @@ export const portfolioData = {
   ],
   projects: [
     {
+      title: "subway-sim",
+      description: "Real-world network throttler for Rust CLI. Simulates Edge, 3G, and flaky connections by injecting latency and packet loss at the system level.",
+      tech: "Rust",
+      category: "CLI",
+      link: "https://github.com/bhavukar/subway-sim.git"
+    },
+    {
+      title: "asset-vibe",
+      description: "Automated mobile asset pipeline. Watch folders to instantly generate 1x, 2x, 3x iOS and Android drawable resolutions with strongly-typed references.",
+      tech: "Rust",
+      category: "CLI",
+      link: "https://github.com/bhavukar/asset-vibe.git"
+    },
+    {
       title: "Reve",
       description: "Event network app with 20,000+ downloads. Built from concept to launch across iOS and Android.",
       tech: "Flutter",
-      category: "Mobile"
+      category: "Mobile",
+      link: "https://reve.rsvp/"
     },
     {
       title: "Soulune",
@@ -53,38 +68,43 @@ export const portfolioData = {
       title: "Pakt",
       description: "Biking community platform for riders to discover, plan, and sync up for group rides in real-time.",
       tech: "Flutter / Firebase",
-      category: "Mobile"
+      category: "Mobile",
+      link: "https://getpakt.run/"
     },
     {
       title: "overlay_keep",
       description: "High-performance Flutter plugin using native methods to maintain UI layers above the system keyboard.",
       tech: "Dart / Swift / Kotlin",
-      category: "Plugin"
+      category: "Plugin",
+      link: "https://github.com/bhavukar/overlay_keeb.git"
     },
     {
       title: "Monik",
       description: "Display control utility for Windows. A 'BetterDisplay' alternative for managing monitor inputs and DDC/CI.",
       tech: "C++ / Win32",
-      category: "Desktop"
+      category: "Desktop",
+      link: "https://github.com/bhavukar/monik.git"
     },
     {
       title: "Unscroll",
       description: "Anti-doomscrolling social layer that enforces a 30-minute daily limit to promote digital wellbeing.",
       tech: "React Native",
-      category: "Mobile"
+      category: "Mobile",
+      link: "https://github.com/Bhavukarora03/unscroll.git"
     },
     {
       title: "Two Third Dimensions",
       description: "Trap-filled dungeon crawler. Reached Top 5 Popularity in BYOG 2021 Game Jam out of 155 entries.",
       tech: "Unity / C#",
-      category: "Game"
+      category: "Game",
+      link: "https://github.com/Bhavukarora03/Two-Third-Dimension.git"
     },
     {
       title: "Panzer",
       description: "Outer-space tank survival game. Ranked 452 in Graphics out of 1800 entries in Brackeys Jam.",
       tech: "Unity / C#",
       category: "Game",
-      link: "http://gg.gg/panzergame"
+      link: "https://github.com/Bhavukarora03/Panzer-UNITY.git"
     },
     {
       title: "Restoe",
@@ -96,11 +116,12 @@ export const portfolioData = {
       title: "VRPlaced",
       description: "AI platform for interview prep with OpenAI-driven resume customization.",
       tech: "Next.js",
-      category: "Web"
+      category: "Web",
+      link: "https://www.vrplaced.ai/"
     }
   ],
   skills: {
-    languages: ["Dart", "Java", "TypeScript", "Swift", "Python", "C#", "C++"],
+    languages: ["Rust", "Dart", "Java", "TypeScript", "Swift", "Python", "C#", "C++"],
     frameworks: ["Flutter", "Spring Boot", "Next.js", "Node.js", "Unity", "FastAPI"],
     infrastructure: ["Postgres", "Firestore", "MongoDB", "Redis", "Docker", "GCP", "Kafka"],
     design: ["Figma", "Design Systems", "Product Strategy", "UX Research", "Motion Design"]

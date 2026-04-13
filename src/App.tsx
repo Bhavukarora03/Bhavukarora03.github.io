@@ -5,7 +5,8 @@ import {
   Github, Linkedin, Instagram, 
   ExternalLink, Code2, Briefcase, 
   Mail, ChevronRight,
-  Layout, Layers
+  Layout, Layers,
+  Smartphone, Gamepad2, Globe, Database
 } from 'lucide-react';
 import { portfolioData } from './data/portfolio';
 import { clsx, type ClassValue } from 'clsx';
@@ -71,27 +72,56 @@ const App: React.FC = () => {
             <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Featured Projects</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {portfolioData.projects.map(p => (
-              <motion.div 
-                whileHover={{ y: -2 }}
-                key={p.title} 
-                className="p-5 rounded-2xl glass-card group cursor-pointer"
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-500">
-                    <Layers size={16} />
+            {portfolioData.projects.map((p, idx) => {
+              const Icon = p.category === 'CLI' ? Code2 : 
+                           p.category === 'Mobile' ? Smartphone : 
+                           p.category === 'Game' ? Gamepad2 : 
+                           p.category === 'Web' ? Globe : 
+                           p.category === 'Backend' ? Database : Layers;
+              
+              return (
+                <motion.a
+                  href={p.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.05 }}
+                  whileHover={{ y: -4, scale: 1.01 }}
+                  key={p.title} 
+                  className="p-5 rounded-2xl glass-card group cursor-pointer block relative overflow-hidden"
+                >
+                  <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="w-12 h-12 bg-emerald-500/5 rounded-full blur-xl" />
                   </div>
-                  <ExternalLink size={14} className="text-white/20 group-hover:text-emerald-500 transition-colors" />
-                </div>
-                <h4 className="text-sm font-bold text-white mb-1">{p.title}</h4>
-                <p className="text-[11px] text-white/50 leading-relaxed mb-4">{p.description}</p>
-                <div className="flex flex-wrap gap-2">
-                   <span className="text-[9px] font-medium px-2 py-1 rounded bg-white/5 text-emerald-400 uppercase tracking-tight">
-                    {p.tech}
-                   </span>
-                </div>
-              </motion.div>
-            ))}
+
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="flex flex-col gap-3">
+                      <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-500 w-fit group-hover:bg-emerald-500 group-hover:text-black transition-all duration-300">
+                        <Icon size={18} />
+                      </div>
+                      <div>
+                        <span className="text-[9px] font-bold text-emerald-500/50 uppercase tracking-widest mb-1 block">{p.category}</span>
+                        <h4 className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">{p.title}</h4>
+                      </div>
+                    </div>
+                    {p.link && <ExternalLink size={14} className="text-white/20 group-hover:text-emerald-500 transition-colors mt-1" />}
+                  </div>
+                  
+                  <p className="text-[12px] text-white/40 leading-relaxed mb-4 group-hover:text-white/60 transition-colors line-clamp-2">
+                    {p.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    {p.tech.split(' / ').map(t => (
+                      <span key={t} className="text-[10px] font-medium px-2 py-0.5 rounded-md bg-white/5 border border-white/5 text-white/40 group-hover:border-emerald-500/20 group-hover:text-emerald-500/70 transition-all">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </motion.a>
+              );
+            })}
           </div>
         </div>,
         'bot'
