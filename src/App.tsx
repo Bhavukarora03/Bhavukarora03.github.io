@@ -143,6 +143,86 @@ const ProjectSection: React.FC = () => {
   );
 };
 
+const TerminalScanner: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  const [logs, setLogs] = useState<string[]>([]);
+  const [step, setStep] = useState(0);
+
+  const scanSteps = [
+    "INITIALIZING UPLINK PROTOCOL...",
+    "ACCESSING REVE INFRASTRUCTURE...",
+    "SCANNING REPOSITORIES...",
+    "SUBWAY-SIM: Latency injection active. Packets: 1.2M",
+    "ASSET-VIBE: Pipeline throughput: 50 assets/sec",
+    "REVE: 20k+ node connections established.",
+    "THREAT LEVEL: NEGLIGIBLE",
+    "VIBE CHECK: [██████████] 100%",
+    "SCAN COMPLETE. WELCOME, OPERATOR."
+  ];
+
+  useEffect(() => {
+    if (step < scanSteps.length) {
+      const timeout = setTimeout(() => {
+        setLogs(prev => [...prev, scanSteps[step]]);
+        setStep(s => s + 1);
+      }, 400 + Math.random() * 800);
+      return () => clearTimeout(timeout);
+    }
+  }, [step]);
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="terminal-scanner"
+    >
+      <div className="crt-overlay" />
+      <div className="scanline" />
+      
+      <div className="flex justify-between items-center mb-8 border-b border-emerald-500/20 pb-4">
+        <div className="flex items-center gap-3">
+          <Code2 className="text-emerald-500 animate-pulse" size={20} />
+          <span className="text-emerald-500 font-bold tracking-[0.2em] text-xs">DEEP SCAN: v4.0.0</span>
+        </div>
+        <button onClick={onClose} className="text-emerald-500/50 hover:text-emerald-500 transition-colors text-[10px] uppercase font-bold tracking-widest border border-emerald-500/20 px-3 py-1 rounded-full">
+          Terminate Session
+        </button>
+      </div>
+
+      <div className="flex-1 overflow-y-auto space-y-2 custom-scrollbar-hide">
+        {logs.map((log, i) => (
+          <motion.div 
+            initial={{ opacity: 0, x: -5 }}
+            animate={{ opacity: 1, x: 0 }}
+            key={i} 
+            className="text-emerald-500/80 text-[11px] font-mono flex gap-3"
+          >
+            <span className="text-emerald-500/20">[{new Date().toLocaleTimeString()}]</span>
+            <span className="terminal-text">{log}</span>
+          </motion.div>
+        ))}
+        {step < scanSteps.length && (
+          <div className="w-2 h-4 bg-emerald-500 animate-pulse ml-16" />
+        )}
+      </div>
+
+      <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {[
+          { label: "MEMORY", val: "94.2%" },
+          { label: "UPTIME", val: "1452h" },
+          { label: "NODES", val: "20,412" },
+          { label: "VIBE", val: "SYNCED" }
+        ].map(stat => (
+          <div key={stat.label} className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10">
+            <div className="text-[9px] text-emerald-500/30 font-bold mb-1 uppercase tracking-widest">{stat.label}</div>
+            <div className="text-emerald-500 font-bold text-sm">{stat.val}</div>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+};
+
 interface Message {
   id: string;
   text: string | React.ReactNode;
@@ -161,6 +241,7 @@ const App: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [showScanner, setShowScanner] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -189,7 +270,16 @@ const App: React.FC = () => {
   const processResponse = (input: string) => {
     setIsTyping(false);
     
-    if (input.includes('project')) {
+    if (input.includes('/scan') || input.includes('system scan') || input.includes('check')) {
+      setShowScanner(true);
+      addMessage(
+        <div className="flex items-center gap-2 text-emerald-400">
+           <Code2 size={14} className="animate-pulse" />
+           <span>System Scan Initiated...</span>
+        </div>,
+        'bot'
+      );
+    } else if (input.includes('project')) {
       addMessage(
         <ProjectSection />,
         'bot'
@@ -442,6 +532,10 @@ const App: React.FC = () => {
 
   return (
     <div className="flex h-[100dvh] w-screen bg-[#030303] text-white antialiased overflow-hidden font-sans">
+      <AnimatePresence>
+        {showScanner && <TerminalScanner onClose={() => setShowScanner(false)} />}
+      </AnimatePresence>
+      
       {/* Visual Enhancements */}
       <div className="bg-glow-container" />
 
@@ -608,6 +702,13 @@ const App: React.FC = () => {
           <div className="max-w-3xl mx-auto">
             {/* Quick Action Chips */}
             <div className="flex gap-2 overflow-x-auto pb-4 mb-2 custom-scrollbar-hide -mx-1 px-1">
+              <button
+                onClick={() => handleSend("/scan")}
+                className="action-chip flex items-center gap-2 bg-emerald-500/10 text-emerald-500 border-emerald-500/20"
+              >
+                <Code2 size={12} />
+                SYSTEM SCAN
+              </button>
               {QUICK_ACTIONS.map(action => (
                 <button
                   key={action.label}
