@@ -263,30 +263,71 @@ const App: React.FC = () => {
       );
     } else if (input.includes('skill') || input.includes('tech')) {
        addMessage(
-        <div className="space-y-6">
+        <div className="space-y-8">
           <div className="flex items-center gap-2 mb-2">
             <Code2 size={14} className="text-emerald-500" />
-            <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Technical Skills</span>
+            <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Technical Arsenal</span>
           </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <p className="text-[10px] font-bold text-white/30 uppercase tracking-wider mb-3">Languages & Frameworks</p>
-              <div className="flex flex-wrap gap-2">
-                {[...portfolioData.skills.languages, ...portfolioData.skills.frameworks].map(s => (
-                  <span key={s} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-[11px] text-white/70 hover:border-emerald-500/30 transition-colors">
-                    {s}
-                  </span>
+            {/* Languages & Frameworks */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between px-2">
+                <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">Core Stack</span>
+                <span className="text-[9px] font-bold text-emerald-500/50 uppercase">Advanced</span>
+              </div>
+              <div className="grid grid-cols-3 gap-3">
+                {[...portfolioData.skills.languages, ...portfolioData.skills.frameworks].map((s) => (
+                  <motion.div 
+                    whileHover={{ y: -2, backgroundColor: "rgba(255,255,255,0.05)" }}
+                    key={s} 
+                    className="p-3 rounded-2xl glass-card flex flex-col items-center justify-center gap-2 group transition-all"
+                  >
+                    <img 
+                      src={`https://unpkg.com/simple-icons@v14/icons/${s.toLowerCase().replace('+', 'plus').replace('.', 'dot').replace(' ', '')}.svg`}
+                      className="w-5 h-5 opacity-40 group-hover:opacity-100 group-hover:invert-0 transition-all filter brightness-0 invert"
+                      alt={s}
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none';
+                        (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
+                      }}
+                    />
+                    <div className="hidden text-emerald-500/50 group-hover:text-emerald-500 transition-colors">
+                      <Code2 size={16} />
+                    </div>
+                    <span className="text-[9px] font-bold text-white/40 group-hover:text-white transition-colors text-center">{s}</span>
+                  </motion.div>
                 ))}
               </div>
             </div>
-            <div>
-              <p className="text-[10px] font-bold text-white/30 uppercase tracking-wider mb-3">Infrastructure & Tools</p>
-              <div className="flex flex-wrap gap-2">
-                {portfolioData.skills.infrastructure.map(s => (
-                  <span key={s} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-[11px] text-white/70 hover:border-emerald-500/30 transition-colors">
-                    {s}
-                  </span>
-                ))}
+
+            {/* Infrastructure & Design */}
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between px-2">
+                  <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">Infrastructure</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {portfolioData.skills.infrastructure.map(s => (
+                    <span key={s} className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/5 text-[11px] font-bold text-white/40 hover:text-emerald-400 hover:border-emerald-500/20 transition-all cursor-default">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-center justify-between px-2">
+                  <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">Product & Design</span>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  {portfolioData.skills.design.map(s => (
+                    <div key={s} className="p-3 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 flex items-center gap-3 group hover:bg-emerald-500/10 transition-all">
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/40 group-hover:bg-emerald-500 transition-all" />
+                      <span className="text-[10px] font-bold text-white/60 group-hover:text-white transition-colors">{s}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
