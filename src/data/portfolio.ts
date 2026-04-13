@@ -3,7 +3,7 @@ export const portfolioData = {
     name: "Bhavuk Arora",
     username: "bhavukarora03",
     role: "Founding Member & Product Engineer @ Reve",
-    bio: "Product-minded Engineer with 4+ years of experience building and scaling startups from 0 to 1. Obsessed with high-performance mobile apps and intuitive UX. My journey evolved from building game engines to designing products, and now engineering complex mobile ecosystems.",
+    bio: "Experienced Product Engineer with 4+ years of experience building startups from zero to one. Skilled in turning early-stage ideas into live mobile apps, contributing across product, design, and launch to create polished, user-ready experiences. My journey evolved from building game engines to designing products, and now engineering complex mobile ecosystems.",
     socials: {
       github: "https://github.com/Bhavukarora03",
       linkedin: "https://www.linkedin.com/in/bhavuk-arora-4a7263216/",
@@ -15,25 +15,25 @@ export const portfolioData = {
   },
   experience: [
     {
-      period: "Current",
+      period: "2023 - Present",
       role: "Founding Member & Product Engineer",
       company: "Reve",
-      description: "Leading the development of a high-growth event network. Scaled from 0 to 20,000+ users. Architected the entire mobile stack and optimized the product loop for maximum retention.",
-      type: "Mobile Engineering"
+      description: "Driving the product from 0 to 20,000+ users. Architected the cross-platform mobile ecosystem and optimized core product loops for retention. Handle full-cycle development from low-fidelity wireframes to production-grade deployments.",
+      type: "Founding Engineer"
     },
     {
       period: "2022 - 2023",
       role: "Product Designer & Frontend Lead",
       company: "Freelance / Various Startups",
-      description: "Transitioned into product strategy. Focused on user psychology, rapid prototyping, and translating complex requirements into seamless interfaces using Next.js and Figma.",
-      type: "Product Design"
+      description: "Led the design-to-code transition for multiple early-stage ventures. Specialized in rapid prototyping with Figma and building high-performance web interfaces using Next.js, focusing on user psychology and intuitive UX.",
+      type: "Product & Frontend"
     },
     {
       period: "2020 - 2022",
       role: "Game Developer",
       company: "Independent / Projects",
-      description: "Started my journey here. Built interactive experiences using Unity and C#. Mastered performance optimization, low-level architecture, and 3D mathematics.",
-      type: "Game Development"
+      description: "Mastered low-level architecture and performance optimization. Built interactive 3D experiences and game engines using Unity/C#, winning multiple awards for technical graphics and gameplay mechanics.",
+      type: "Engineering Core"
     }
   ],
   projects: [
