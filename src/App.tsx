@@ -295,32 +295,82 @@ const App: React.FC = () => {
       );
     } else if (input.includes('contact') || input.includes('reach') || input.includes('social')) {
       addMessage(
-        <div className="space-y-5">
-           <div className="flex items-center gap-2 mb-2">
+        <div className="space-y-8">
+          <div className="flex items-center gap-2 mb-2">
             <Mail size={14} className="text-emerald-500" />
-            <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Get in Touch</span>
+            <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Connect & Collaborate</span>
           </div>
-          <div className="grid grid-cols-1 gap-3">
-            <a href={`mailto:${portfolioData.about.socials.email}`} className="p-4 rounded-2xl glass-card flex justify-between items-center transition-all group">
-              <div className="flex flex-col">
-                <span className="text-[10px] uppercase text-white/30 font-bold mb-0.5">Email</span>
-                <span className="text-xs font-medium text-white/80">{portfolioData.about.socials.email}</span>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Primary Email Card */}
+            <motion.a 
+              href={`mailto:${portfolioData.about.socials.email}`}
+              whileHover={{ y: -4 }}
+              className="sm:col-span-2 p-6 rounded-3xl glass-card group flex items-center justify-between relative overflow-hidden"
+            >
+              <div className="relative z-10">
+                <span className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.2em] mb-2 block">Direct Inquiry</span>
+                <h4 className="text-xl font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">Shoot me an email</h4>
+                <p className="text-xs text-white/40">{portfolioData.about.socials.email}</p>
               </div>
-              <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-500">
-                <Mail size={16} />
+              <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-black transition-all duration-500">
+                <Send size={24} />
               </div>
-            </a>
+              <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-colors" />
+            </motion.a>
+
+            {/* LinkedIn Card */}
+            <motion.a 
+              href={portfolioData.about.socials.linkedin}
+              target="_blank"
+              whileHover={{ y: -4 }}
+              className="p-6 rounded-3xl glass-card group flex flex-col justify-between aspect-square sm:aspect-video relative overflow-hidden"
+            >
+              <div className="w-10 h-10 rounded-xl bg-[#0077b5]/10 text-[#0077b5] flex items-center justify-center group-hover:bg-[#0077b5] group-hover:text-white transition-all">
+                <Linkedin size={20} />
+              </div>
+              <div>
+                <h4 className="font-bold text-white mb-1">LinkedIn</h4>
+                <p className="text-[10px] text-white/40 uppercase tracking-widest">Professional Network</p>
+              </div>
+            </motion.a>
+
+            {/* GitHub Card */}
+            <motion.a 
+              href={portfolioData.about.socials.github}
+              target="_blank"
+              whileHover={{ y: -4 }}
+              className="p-6 rounded-3xl glass-card group flex flex-col justify-between aspect-square sm:aspect-video relative overflow-hidden"
+            >
+              <div className="w-10 h-10 rounded-xl bg-white/5 text-white/60 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                <Github size={20} />
+              </div>
+              <div>
+                <h4 className="font-bold text-white mb-1">GitHub</h4>
+                <p className="text-[10px] text-white/40 uppercase tracking-widest">Source Repository</p>
+              </div>
+            </motion.a>
           </div>
-          <div className="flex gap-4 px-2">
-            {[
-              { icon: Github, url: portfolioData.about.socials.github },
-              { icon: Linkedin, url: portfolioData.about.socials.linkedin },
-              { icon: Instagram, url: portfolioData.about.socials.instagram },
-            ].map((s, i) => (
-              <a key={i} href={s.url} target="_blank" className="p-2 rounded-lg text-white/40 hover:text-emerald-500 hover:bg-emerald-500/5 transition-all">
-                <s.icon size={20} />
-              </a>
-            ))}
+
+          {/* Secondary Social Row */}
+          <div className="flex items-center gap-4 px-2">
+            <span className="text-[9px] font-black text-white/10 uppercase tracking-[0.4em]">Social Presence</span>
+            <div className="flex-1 h-[1px] bg-white/5" />
+            <div className="flex gap-2">
+              {[
+                { icon: Instagram, url: portfolioData.about.socials.instagram, color: "hover:text-pink-500" },
+                { icon: ExternalLink, url: portfolioData.about.socials.behance, label: "Behance", color: "hover:text-blue-500" }
+              ].map((s, i) => (
+                <a 
+                  key={i} 
+                  href={s.url} 
+                  target="_blank" 
+                  className={cn("p-2.5 rounded-xl bg-white/5 text-white/30 transition-all border border-transparent hover:border-white/10", s.color)}
+                >
+                  <s.icon size={18} />
+                </a>
+              ))}
+            </div>
           </div>
         </div>,
         'bot'
