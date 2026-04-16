@@ -4,7 +4,7 @@ import {
   Send, User, Sparkles, 
   Github, Linkedin,
   ExternalLink, Code2, Briefcase, 
-  Mail, ChevronRight,
+  Mail,
   Layout, Layers,
   Smartphone, Gamepad2, Globe, Database, Menu, X
 } from 'lucide-react';
