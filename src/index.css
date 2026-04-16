@@ -20,6 +20,11 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+html {
+  overflow: hidden;
 }
 
 /* Refined Background Glows */
@@ -133,6 +138,10 @@ body {
 }
 
 /* Chip Styles */
+.action-chip {
+  @apply px-3 py-1.5 rounded-full bg-white/5 border border-white/5 text-[10px] font-bold text-white/40 uppercase tracking-widest whitespace-nowrap transition-all hover:bg-emerald-500/10 hover:border-emerald-500/20 hover:text-emerald-500 cursor-pointer;
+}
+
 /* Terminal Playground Styles */
 .terminal-scanner {
   position: fixed;
